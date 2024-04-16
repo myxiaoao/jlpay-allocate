@@ -16,6 +16,27 @@ it('test verify', function () {
     expect($sign)->toBeTrue();
 });
 
+it('test order split', function () {
+    $api = new Api(PUBLIC_KEY, PRIVATE_KEY, ORG_CODE, true);
+    $response = $api->sendOrderSplitRequest(
+        mchId: '849584358120018',
+        outOrderNo: generateNumericOrderNo(),
+        transactionId: '61106708379852213248',
+        totalAmount: 100,
+        receivers: [
+            [
+                'rev_mch_id' => '849584307420004',
+                'amount' => 100,
+                'description' => 'test'
+            ]
+        ]
+    );
+    expect($response['ret_code'])
+        ->toBe('50021')
+        ->and($response['ret_msg'])
+        ->toBe('商户订单不存在');
+});
+
 it('test order split query', function () {
     $api = new Api(PUBLIC_KEY, PRIVATE_KEY, ORG_CODE, true);
     $response = $api->sendOrderSplitQueryRequest(mchId: '849584358120018', orderNo: '61106708379852213248');
