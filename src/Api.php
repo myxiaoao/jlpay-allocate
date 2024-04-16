@@ -224,4 +224,42 @@ class Api
 
         return $this->client->sendRequest('fund/ledger/api/order/refund', $data);
     }
+
+    /**
+     * 5.4 分账回退结果查询
+     *
+     * @throws GuzzleException
+     * @throws JsonException
+     */
+    public function sendOrderRefundQueryRequest(
+        string $mchId,
+        ?string $outReturnNo = null,
+        ?string $returnNo = null,
+    ): array {
+        $data = $this->client->filterNullValues([
+            'mch_id' => $mchId,
+            'return_no' => $returnNo,
+            'out_return_no' => $outReturnNo,
+        ]);
+
+        return $this->client->sendRequest('fund/ledger/api/order/refund/query', $data);
+    }
+
+    /**
+     * 5.5 交易订单查询
+     *
+     * @throws GuzzleException
+     * @throws JsonException
+     */
+    public function sendOrderTransQueryRequest(
+        string $mchId,
+        string $transactionId
+    ): array {
+        $data = $this->client->filterNullValues([
+            'mch_id' => $mchId,
+            'transaction_id' => $transactionId,
+        ]);
+
+        return $this->client->sendRequest('fund/ledger/api/order/trans/query', $data);
+    }
 }

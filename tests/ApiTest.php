@@ -21,3 +21,9 @@ it('test order split query', function () {
     $response = $api->sendOrderSplitQueryRequest(mchId: '849584358120018', orderNo: '61106708379852213248');
     expect($response['ret_msg'])->toBe('OK');
 });
+
+it('test order trans query', function () {
+    $api = new Api(PUBLIC_KEY, PRIVATE_KEY, ORG_CODE, true);
+    $response = $api->sendOrderTransQueryRequest(mchId: '849584358120018', transactionId: '451095914701560505958427');
+    expect($response['ret_msg'])->toBe('OK');
+});
