@@ -6,7 +6,7 @@ build
 composer.lock
 coverage
 docs
-phpunit.xml.dist
+phpunit.xml
 psalm.xml
 vendor
 .php-cs-fixer.cache
