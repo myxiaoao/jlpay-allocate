@@ -127,7 +127,7 @@ class Api
             'bank_name' => $bankName,
             'bank_branch_code' => $bankBranchCode,
             'bank_branch_name' => $bankBranchName,
-            'bank_front_source_id' => $bankFrontSourceId
+            'bank_front_source_id' => $bankFrontSourceId,
         ]);
 
         return $this->client->sendRequest('fund/ledger/api/merch/rev/open', $data);
@@ -157,7 +157,7 @@ class Api
             'bank_name' => $bankName,
             'bank_branch_code' => $bankBranchCode,
             'bank_branch_name' => $bankBranchName,
-            'bank_front_source_id' => $bankFrontSourceId
+            'bank_front_source_id' => $bankFrontSourceId,
         ]);
 
         return $this->client->sendRequest('fund/ledger/api/merch/rev/settle/update', $data);
@@ -387,7 +387,7 @@ class Api
     ): array {
         $data = $this->client->filterNullValues([
             'out_order_no' => $outOrderNo,
-            'order_no' => $orderNo
+            'order_no' => $orderNo,
         ]);
 
         return $this->client->sendRequest('fund/ledger/api/balance/split/query', $data);

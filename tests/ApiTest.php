@@ -27,8 +27,8 @@ it('test order split', function () {
             [
                 'rev_mch_id' => '849584307420004',
                 'amount' => 100,
-                'description' => 'test'
-            ]
+                'description' => 'test',
+            ],
         ]
     );
     expect($response['ret_code'])
