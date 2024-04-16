@@ -1,0 +1,50 @@
+{
+    "name": "cooper/jlpay-allocate",
+    "description": "Jialian Payment's account allocation business PHP SDK. ",
+    "keywords": [
+        "cooper",
+        "jlpay"
+    ],
+    "homepage": "https://github.com/myxiaoao/jlpay-allocate",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Cooper",
+            "email": "myxiaoao@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.0",
+        "guzzlehttp/guzzle": "^7.8",
+        "lpilp/guomi": "^1.0"
+    },
+    "require-dev": {
+        "pestphp/pest": "^2.20",
+        "laravel/pint": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Cooper\\JlPayAllocate\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Cooper\\JlPayAllocate\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/pest",
+        "test-coverage": "vendor/bin/pest --coverage",
+        "format": "vendor/bin/pint"
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "phpstan/extension-installer": true
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
