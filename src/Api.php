@@ -219,7 +219,7 @@ class Api
             'out_return_no' => $outReturnNo,
             'rev_mch_id' => $revMchId,
             'amount' => $amount,
-            'description' => $description
+            'description' => $description,
         ]);
 
         return $this->client->sendRequest('fund/ledger/api/order/refund', $data);
