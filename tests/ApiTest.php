@@ -17,7 +17,7 @@ it('test verify', function () {
 });
 
 it('test order split query', function () {
-    $client = new Api(PUBLIC_KEY, PRIVATE_KEY, ORG_CODE, true);
-    $response = $client->sendOrderSplitRequest(mchId: '849584358120018', orderNo: '61106708379852213248');
+    $api = new Api(PUBLIC_KEY, PRIVATE_KEY, ORG_CODE, true);
+    $response = $api->sendOrderSplitQueryRequest(mchId: '849584358120018', orderNo: '61106708379852213248');
     expect($response['ret_msg'])->toBe('OK');
 });
