@@ -1,10 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Cooper\JlPayAllocate;
 
 use GuzzleHttp\Client as GuzzleClient;
 use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\MessageFormatter;
+use GuzzleHttp\Middleware;
 use JsonException;
+use Monolog\Handler\RotatingFileHandler;
+use Monolog\Logger;
 use RuntimeException;
 
 class Client
@@ -21,14 +28,41 @@ class Client
 
     private Signature $signature;
 
-    public function __construct(string $publicKey, string $privateKey, string $orgCode, bool $uat = false)
-    {
+    public function __construct(
+        string $publicKey,
+        string $privateKey,
+        string $orgCode,
+        bool $uat = false,
+        array $options = []
+    ) {
+        date_default_timezone_set('Asia/Shanghai');
+
         $this->signature = new Signature($publicKey, $privateKey);
         $this->orgCode = $orgCode;
         $this->baseUrl = $uat ? self::UAT_BASE_URL : self::BASE_URL;
-        $this->client = new GuzzleClient();
+        $this->client = $this->getGuzzleClient($options);
+    }
 
-        date_default_timezone_set('Asia/Shanghai');
+    private function getGuzzleClient($options): GuzzleClient
+    {
+        if (isset($options['logger']['path']) && is_array($options['logger'])) {
+            $logger = new Logger($options['logger']['name'] ?? 'jlpay-allocate');
+            $logger->pushHandler(
+                new RotatingFileHandler($options['logger']['path'], $options['logger']['day'] ?? 30)
+            );
+
+            $stack = HandlerStack::create();
+            $stack->push(
+                Middleware::log(
+                    $logger,
+                    new MessageFormatter('{method} - {target} - HTTP/{version} - {code} - {req_body} - {res_body}')
+                )
+            );
+
+            return new GuzzleClient(['handler' => $stack]);
+        }
+
+        return new GuzzleClient();
     }
 
     public function filterNullValues(array $data): array
@@ -60,7 +94,7 @@ class Client
             'headers' => ['Content-Type' => 'application/json'],
         ]);
 
-        $body = json_decode($response->getBody(), true, 512, JSON_THROW_ON_ERROR);
+        $body = json_decode((string) $response->getBody(), true, 512, JSON_THROW_ON_ERROR);
 
         $sign = $body['sign'] ?? '';
         $toSortedQueryString = $this->toSortedQueryString($body);

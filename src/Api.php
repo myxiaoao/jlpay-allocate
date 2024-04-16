@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Cooper\JlPayAllocate;
 
 use GuzzleHttp\Exception\GuzzleException;
@@ -9,9 +11,25 @@ class Api
 {
     private Client $client;
 
-    public function __construct(string $publicKey, string $privateKey, string $orgCode, bool $uat = false)
+    public function __construct(
+        string $publicKey,
+        string $privateKey,
+        string $orgCode,
+        bool $uat = false,
+        array $options = []
+    ) {
+        $this->client = new Client($publicKey, $privateKey, $orgCode, $uat, $options);
+    }
+
+    public static function make(array $config): self
     {
-        $this->client = new Client($publicKey, $privateKey, $orgCode, $uat);
+        return new self(
+            $config['public_key'],
+            $config['private_key'],
+            $config['org_code'],
+            $config['uat'] ?? false,
+            $config['options'] ?? []
+        );
     }
 
     /**

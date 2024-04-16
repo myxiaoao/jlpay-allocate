@@ -17,7 +17,12 @@ it('test verify', function () {
 });
 
 it('test order split', function () {
-    $api = new Api(PUBLIC_KEY, PRIVATE_KEY, ORG_CODE, true);
+    $api = Api::make([
+        'public_key' => PUBLIC_KEY,
+        'private_key' => PRIVATE_KEY,
+        'org_code' => ORG_CODE,
+        'uat' => true,
+    ]);
     $response = $api->sendOrderSplitRequest(
         mchId: '849584358120018',
         outOrderNo: generateNumericOrderNo(),
