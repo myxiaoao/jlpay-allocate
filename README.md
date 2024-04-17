@@ -1,7 +1,7 @@
 # Jialian Payment's account allocation business PHP SDK.
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/cooper/jlpay-allocate.svg?style=flat-square)](https://packagist.org/packages/cooper/jlpay-allocate)
-[![Tests](https://img.shields.io/github/actions/workflow/status/myxiaoao/jlpay-allocate/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/myxiaoao/jlpay-allocate/actions/workflows/run-tests.yml)
+[![Tests](https://img.shields.io/github/actions/workflow/status/myxiaoao/jlpay-allocate/run-tests.yml?branch=master&label=tests&style=flat-square)](https://github.com/myxiaoao/jlpay-allocate/actions/workflows/run-tests.yml)
 [![Total Downloads](https://img.shields.io/packagist/dt/cooper/jlpay-allocate.svg?style=flat-square)](https://packagist.org/packages/cooper/jlpay-allocate)
 
 ## Installation
