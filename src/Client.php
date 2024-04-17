@@ -78,7 +78,7 @@ class Client
      */
     public function sendRequest(string $endpoint, array $data): array
     {
-        $url = $this->baseUrl . ltrim($endpoint, '/');
+        $url = $this->baseUrl.ltrim($endpoint, '/');
 
         $data['org_code'] = $this->orgCode;
         $data['timestamp'] = date('Y-m-d H:i:s');
