@@ -78,7 +78,7 @@ class Client
      */
     public function sendRequest(string $endpoint, array $data): array
     {
-        $url = $this->baseUrl.ltrim($endpoint, '/');
+        $url = $this->baseUrl . ltrim($endpoint, '/');
 
         $data['org_code'] = $this->orgCode;
         $data['timestamp'] = date('Y-m-d H:i:s');
@@ -97,10 +97,12 @@ class Client
         $body = json_decode((string) $response->getBody(), true, 512, JSON_THROW_ON_ERROR);
 
         $sign = $body['sign'] ?? '';
-        $toSortedQueryString = $this->toSortedQueryString($body);
-        $verify = $this->signature->verify($toSortedQueryString, $sign);
-        if (! $verify) {
-            throw new RuntimeException('sign error');
+        if ($sign !== '') {
+            $toSortedQueryString = $this->toSortedQueryString($body);
+            $verify = $this->signature->verify($toSortedQueryString, $sign);
+            if (! $verify) {
+                throw new RuntimeException('签名检校失败');
+            }
         }
 
         return $body;
