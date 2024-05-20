@@ -131,7 +131,7 @@ class Client
                 }
                 $tempValue = $value;
                 if (is_object($value) || is_array($value)) {
-                    $tempValue = json_encode($value, JSON_THROW_ON_ERROR);
+                    $tempValue = json_encode($value, JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE);
                 }
                 $queryString .= "$key=$tempValue";
             }
